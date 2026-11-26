@@ -1,0 +1,307 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255, 0, 51, 0.18), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(80, 60, 255, 0.18), transparent 30%),
+        #08090f;
+    color: #ffffff;
+    padding: 30px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* HEADER */
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.youtube-icon {
+    width: 58px;
+    height: 42px;
+    border-radius: 12px;
+    background: #ff0033;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 8px 25px rgba(255, 0, 51, 0.25);
+}
+
+.header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.header p {
+    margin-top: 6px;
+    color: #9295a3;
+    font-size: 14px;
+}
+
+/* MAIN CARD */
+
+.main-card {
+    background: rgba(18, 19, 28, 0.96);
+    border: 1px solid #292b38;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+label {
+    display: block;
+    margin-bottom: 11px;
+    color: #e4e5ea;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* TEXTAREA */
+
+textarea {
+    width: 100%;
+    min-height: 155px;
+    padding: 18px;
+    resize: vertical;
+
+    background: #0d0e15;
+    color: #ffffff;
+
+    border: 1px solid #30323e;
+    border-radius: 16px;
+
+    outline: none;
+    font-size: 16px;
+    line-height: 1.6;
+
+    transition: 0.25s;
+}
+
+textarea::placeholder {
+    color: #656875;
+}
+
+textarea:focus {
+    border-color: #ff174f;
+    box-shadow: 0 0 0 3px rgba(255, 23, 79, 0.08);
+}
+
+/* BUTTON */
+
+.analyze-btn {
+    width: 100%;
+    margin-top: 18px;
+
+    padding: 15px;
+
+    border: none;
+    border-radius: 13px;
+
+    background: linear-gradient(
+        90deg,
+        #ff0033,
+        #ff174f
+    );
+
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.analyze-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(255, 0, 51, 0.25);
+}
+
+.analyze-btn:active {
+    transform: translateY(0);
+}
+
+/* ERROR */
+
+.error {
+    display: none;
+    margin-top: 15px;
+    padding: 12px 15px;
+
+    border-radius: 10px;
+
+    background: rgba(255, 70, 90, 0.08);
+    border: 1px solid rgba(255, 70, 90, 0.2);
+
+    color: #ff6b7d;
+    font-size: 14px;
+}
+
+/* RESULT */
+
+.result {
+    display: none;
+    margin-top: 32px;
+}
+
+.result-title {
+    margin-bottom: 18px;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+/* STAT CARDS */
+
+.result-box {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.stat {
+    background: #101119;
+    border: 1px solid #292b37;
+    border-radius: 17px;
+    padding: 20px;
+
+    transition: 0.25s;
+}
+
+.stat:hover {
+    transform: translateY(-3px);
+    border-color: #3b3e4c;
+}
+
+.stat span {
+    display: block;
+    margin-bottom: 9px;
+
+    color: #858895;
+    font-size: 13px;
+}
+
+.stat strong {
+    font-size: 22px;
+}
+
+/* RESULT COLORS */
+
+.sentiment {
+    color: #00e676;
+}
+
+.score {
+    color: #4da6ff;
+}
+
+/* COMMENT PREVIEW */
+
+.comment-preview {
+    margin-top: 20px;
+
+    padding: 20px;
+
+    background: #0d0e15;
+
+    border: 1px solid #292b37;
+    border-radius: 17px;
+}
+
+.comment-preview > span {
+    color: #858895;
+    font-size: 13px;
+}
+
+.comment-preview p {
+    margin-top: 10px;
+
+    color: #d1d3da;
+    line-height: 1.7;
+    font-size: 15px;
+
+    word-wrap: break-word;
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    body {
+        padding: 18px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .main-card {
+        padding: 22px;
+    }
+
+    .result-box {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* SMALL MOBILE */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 12px;
+    }
+
+    .header {
+        align-items: flex-start;
+    }
+
+    .youtube-icon {
+        width: 48px;
+        height: 36px;
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+    .header h1 {
+        font-size: 20px;
+        line-height: 1.3;
+    }
+
+    .header p {
+        font-size: 12px;
+    }
+
+    .main-card {
+        padding: 17px;
+        border-radius: 18px;
+    }
+
+    textarea {
+        min-height: 140px;
+        font-size: 15px;
+    }
+
+    .result-box {
+        grid-template-columns: 1fr;
+    }
+
+    .stat {
+        padding: 17px;
+    }
+}

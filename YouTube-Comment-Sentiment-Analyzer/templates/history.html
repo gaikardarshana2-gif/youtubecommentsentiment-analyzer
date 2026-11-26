@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analysis History</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top right, rgba(255, 0, 51, 0.18), transparent 32%),
+                radial-gradient(circle at bottom left, rgba(70, 60, 255, 0.18), transparent 35%),
+                #08090f;
+            color: white;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 28px;
+        }
+
+        .title h1 {
+            font-size: 30px;
+        }
+
+        .title p {
+            color: #9295a3;
+            margin-top: 7px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: white;
+            background: #151720;
+            border: 1px solid #30323d;
+            padding: 12px 18px;
+            border-radius: 10px;
+        }
+
+        .back-btn:hover {
+            border-color: #ff174f;
+        }
+
+        .history-card {
+            background: rgba(18, 19, 28, 0.96);
+            border: 1px solid #292b38;
+            border-radius: 22px;
+            padding: 25px;
+        }
+
+        .history-item {
+            background: #0e0f16;
+            border: 1px solid #292b38;
+            border-radius: 15px;
+            padding: 18px;
+            margin-bottom: 14px;
+        }
+
+        .history-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .sentiment {
+            font-weight: bold;
+        }
+
+        .positive {
+            color: #00e676;
+        }
+
+        .negative {
+            color: #ff5570;
+        }
+
+        .neutral {
+            color: #ffd54f;
+        }
+
+        .comment {
+            color: #d1d3da;
+            line-height: 1.6;
+            word-break: break-word;
+        }
+
+        .score {
+            margin-top: 10px;
+            color: #4da6ff;
+            font-size: 14px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 50px 20px;
+            color: #777b89;
+        }
+
+        .clear-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 11px;
+            background: #211118;
+            color: #ff6078;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .clear-btn:hover {
+            background: #35151f;
+        }
+
+        .copyright {
+            position: fixed;
+            right: 18px;
+            bottom: 12px;
+            color: #666a78;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .title h1 {
+                font-size: 24px;
+            }
+
+            .back-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="top">
+
+        <div class="title">
+            <h1>📜 Analysis History</h1>
+            <p>Your previously analyzed YouTube comments</p>
+        </div>
+
+        <a href="/" class="back-btn">
+            ← Back to Analyzer
+        </a>
+
+    </div>
+
+
+    <div class="history-card">
+
+        <div id="historyList"></div>
+
+        <button
+            class="clear-btn"
+            onclick="clearHistory()">
+            🗑️ Clear History
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="copyright">
+    © Darshana Gaikar
+</div>
+
+
+<script>
+
+function loadHistory() {
+
+    const historyList =
+        document.getElementById("historyList");
+
+    const history =
+        JSON.parse(
+            localStorage.getItem("youtubeSentimentHistory") || "[]"
+        );
+
+
+    if (history.length === 0) {
+
+        historyList.innerHTML = `
+            <div class="empty">
+                <h2>No Analysis History</h2>
+                <p>Analyze some YouTube comments to see them here.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    historyList.innerHTML = "";
+
+
+    history.forEach(item => {
+
+        let sentimentClass =
+            item.sentiment.toLowerCase();
+
+
+        const div =
+            document.createElement("div");
+
+        div.className = "history-item";
+
+
+        div.innerHTML = `
+            <div class="history-header">
+                <strong class="sentiment ${sentimentClass}">
+                    ${item.emoji} ${item.sentiment}
+                </strong>
+
+                <span style="color:#777b89;">
+                    ${item.date}
+                </span>
+            </div>
+
+            <div class="comment">
+                ${item.comment}
+            </div>
+
+            <div class="score">
+                Compound Score: ${item.compound}
+            </div>
+        `;
+
+
+        historyList.appendChild(div);
+
+    });
+
+}
+
+
+function clearHistory() {
+
+    localStorage.removeItem(
+        "youtubeSentimentHistory"
+    );
+
+    loadHistory();
+
+}
+
+
+loadHistory();
+
+</script>
+
+</body>
+</html>
